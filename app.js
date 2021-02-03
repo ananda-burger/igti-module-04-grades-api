@@ -10,12 +10,7 @@ const PORT = process.env.PORT || 8081
 const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(
-  cors({
-    // In development use http://localhost:3000/
-    origin: "https://grades-igti-application.herokuapp.com/",
-  })
-)
+app.use(cors({origin: process.env.ORIGIN}))
 
 app.get('/', (req, res) => {
   res.send('API em execucao')
