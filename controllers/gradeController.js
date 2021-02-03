@@ -1,5 +1,6 @@
 import { db } from '../models/index.js';
 import { logger } from '../config/logger.js';
+import { Grade } from '../models/Grade.js'
 
 const create = async (req, res) => {
   try {
@@ -16,13 +17,14 @@ const create = async (req, res) => {
 const findAll = async (req, res) => {
   const name = req.query.name;
 
-  //condicao para o filtro no findAll
   var condition = name
     ? { name: { $regex: new RegExp(name), $options: 'i' } }
     : {};
 
   try {
     logger.info(`GET /grade`);
+    const grades = await Grade.find(condition)
+    res.send(grades)
   } catch (error) {
     res
       .status(500)
