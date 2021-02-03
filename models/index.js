@@ -1,7 +1,17 @@
 import mongoose from 'mongoose';
 
-const db = {};
+let db = {}
 db.mongoose = mongoose;
-db.url = process.env.MONGODB;
 
-export { db };
+const connect = async () => {
+  try {
+    await db.mongoose.connect(process.env.MONGODB, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+  } catch (error) {
+    process.exit();
+  }
+};
+
+export { db, connect };
