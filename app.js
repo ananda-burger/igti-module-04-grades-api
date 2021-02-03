@@ -5,12 +5,14 @@ import cors from 'cors';
 import {connect} from './models/index.js';
 import controller from './controllers/gradeController.js'
 
+const PORT = process.env.PORT || 8081
+
 const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(
   cors({
-    origin: 'http://localhost:8080',
+    origin: `http://localhost:3000`,
   })
 )
 
@@ -29,4 +31,4 @@ connect().then(() => {
   console.log('Connected to MongoDB.')
 })
 
-app.listen(process.env.PORT || 8081, () => {});
+app.listen(PORT, () => {});
